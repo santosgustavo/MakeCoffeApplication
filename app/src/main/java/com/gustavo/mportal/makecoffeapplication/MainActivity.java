@@ -6,6 +6,10 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
+/*
+    Comentário
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     private WebView wb;
