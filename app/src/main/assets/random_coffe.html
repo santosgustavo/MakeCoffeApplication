@@ -1,4 +1,5 @@
 <html>
+
 <head>
     <link rel="stylesheet" href="./bootstrap.min.css">
 </head>
@@ -6,9 +7,9 @@
 
 <body>
     <div class="container">
-        
+
         <figure class="figure">
-          <img id="imagem" class="img-thumbnail figure-img img-fluid rounded" src="./coffe.png"/>
+            <img id="imagem" class="img-thumbnail figure-img img-fluid rounded" src="./coffe.png" />
             <figcaption class="coffe figure-caption text-right"></figcaption>
         </figure>
 
@@ -19,49 +20,57 @@
 </body>
 
 <script>
+    /* Código Sujo By: Nicolas ;) */
+    /* Código Limpo By: Gustavo ;) */
 
-    /* Código Limpo By: Nicolas ;) */
+    let time = 0,
+        membros = ["paulo", "joao", "silvan", "aleatorio", "nicolas", "jean", "isacenicolas", "rafa", "pauloesponja"],
+        frases = ["SIS CARA É FODA MANO", "OIA ESSES CARAS, JÁ TAO ME PREJUDICANDO", "SILVAAAAN VIADO", "PODE SER O SILVAN", "NEM SOU GENTE", "...", "HUMMMMMMMM...", "FIGURINHA EM DESENVOLVIMENTO..", "PAULOESPONJA"];
+    var img = document.getElementById('imagem');
 
-    let time = 0
-        ,membros = ["paulo", "joao", "silvan", "aleatorio", "nicolas","jean","isac","rafa"]
-        ,frases = ["SIS CARA É FODA MANO", "OIA ESSES CARAS, JÁ TAO ME PREJUDICANDO","SILVAAAAN VIADO", "SILVAN, SAI DAQUI, N É SUA VEZ", "NEM SOU GENTE","...","HUMM","FIGURINHA EM DESENVOLVIMENTO.."];
-    var img =  document.getElementById('imagem');
-    
     function sortear() {
         ocultaBotao();
         geraImagensAleatorias();
         paraSorteioAposOTempo(6000);
     }
 
-    function ocultaBotao(){
+    function ocultaBotao() {
         document.querySelector('#btn').style.display = 'none';
     }
-    
-    function exibeBotao(){
+
+    function exibeBotao() {
         document.querySelector('#btn').style.display = 'block';
     }
 
-    function geraImagensAleatorias(){
-        time = setInterval(function(){
-           
-            var n = Math.floor(Math.random() * 8);
+    function geraImagensAleatorias() {
+        time = setInterval(function() {
+
+            var n = Math.floor(Math.random() * 9);
             
-            if(n == 7) 
-                img.src = membros[7]+".jpg";
-            else 
-                img.src = membros[n]+".webp";
-            
-            document.querySelector('.coffe').textContent = frases[n];
+            if (n == 7)
+                img.src = membros[7] + ".jpg";
+            else
+                img.src = membros[n] + ".webp";
+
+                document.querySelector('.coffe').textContent = frases[n];
         }, 100);
     }
 
-    function paraSorteioAposOTempo(timer){
-        setTimeout(function(){
+    function paraSorteioAposOTempo(timer) {
+        setTimeout(function() {
             
             clearInterval(time);
+            //var recebeFrase = document.querySelector('.coffe').textContent;
+            showToast("Sem choro por favor!!");
             exibeBotao();
+            
         }, timer);
     }
+    
+    function showToast(mensagem){
+        android.toast(mensagem);
+    }
+    
 </script>
 
 <style>
@@ -86,11 +95,13 @@
         cursor: pointer;
         width: 300px;
     }
-    #btn{
+
+    #btn {
         bottom: 29px;
         position: absolute;
     }
-    .coffe{
+
+    .coffe {
         font-weight: bold;
         text-decoration: uppercase;
         text-align: center;
