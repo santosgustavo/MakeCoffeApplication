@@ -24,8 +24,8 @@
     /* Código Limpo By: Gustavo ;) */
 
     let time = 0,
-        membros = ["paulo", "joao", "silvan", "aleatorio", "nicolas", "jean", "isacenicolas", "rafa", "pauloesponja"],
-        frases = ["SIS CARA É FODA MANO", "OIA ESSES CARAS, JÁ TAO ME PREJUDICANDO", "SILVAAAAN VIADO", "PODE SER O SILVAN", "NEM SOU GENTE", "...", "HUMMMMMMMM...", "FIGURINHA EM DESENVOLVIMENTO..", "PAULOESPONJA"];
+        membros = ["paulo", "joao", "silvan", "aleatorio", "nicolas", "jean", "rafa"],
+        frases = ["SIS CARA É FODA MANO", "JÁ TAO ME PREJUDICANDO", "SILVAAAAN VIADO", "PODE SER O SILVAN", "NEM SOU GENTE", "...","NEXT"];
     var img = document.getElementById('imagem');
 
     function sortear() {
@@ -45,10 +45,10 @@
     function geraImagensAleatorias() {
         time = setInterval(function() {
 
-            var n = Math.floor(Math.random() * 9);
-            
-            if (n == 7)
-                img.src = membros[7] + ".jpg";
+            var n = Math.floor(Math.random() * 7);
+
+            if (n == 7 || n == 6)
+                img.src = membros[n] + ".jpg";
             else
                 img.src = membros[n] + ".webp";
 
