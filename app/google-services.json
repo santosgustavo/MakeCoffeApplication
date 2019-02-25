@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "740994700920",
+    "firebase_url": "https://make-coffe-application-816d8.firebaseio.com",
+    "project_id": "make-coffe-application-816d8",
+    "storage_bucket": "make-coffe-application-816d8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:740994700920:android:0c44ac2a15a9ffd1",
+        "android_client_info": {
+          "package_name": "com.gustavo.mportal.makecoffeapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "740994700920-krgi590hk47j746uqgdvopltcutoigm9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD91eT39MjJbcB1XPn-qiq39HvNK6kSziI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

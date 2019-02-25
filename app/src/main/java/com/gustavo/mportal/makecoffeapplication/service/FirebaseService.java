@@ -10,7 +10,7 @@ public class FirebaseService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
-    Log.i("FIREBASE SERVICE","Passei aqui");
+    Log.i(" SERVIFIREBASECE","Passei aqui");
 
         super.onMessageReceived(remoteMessage);
     }
