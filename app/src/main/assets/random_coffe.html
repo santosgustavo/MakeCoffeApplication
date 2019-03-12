@@ -58,14 +58,14 @@
             
             clearInterval(time);
             //var recebeFrase = document.querySelector('.coffe').textContent;
-            showToast("Sem choro por favor!!");
+            enviarNotificacao("Fulano foi sorteado");
             exibeBotao();
             
         }, timer);
     }
     
-    function showToast(mensagem){
-        android.toast(mensagem);
+    function enviarNotificacao(mensagem){
+        android.enviarNotificacao(mensagem);
     }
     
 </script>

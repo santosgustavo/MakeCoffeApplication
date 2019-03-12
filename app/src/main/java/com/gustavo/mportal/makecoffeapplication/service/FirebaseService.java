@@ -6,11 +6,12 @@ import com.google.firebase.messaging.RemoteMessage;
 
 public class FirebaseService extends FirebaseMessagingService {
 
+    private String TAG = "FirebaseServiceLog";
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
-    Log.i(" SERVIFIREBASECE","Passei aqui");
+    Log.i(TAG,"Passei aqui");
 
         super.onMessageReceived(remoteMessage);
     }
@@ -18,7 +19,7 @@ public class FirebaseService extends FirebaseMessagingService {
     @Override
     public void onNewToken(String s) {
 
-        Log.i("FIREBASE SERVICE","Token: " + s);
+        Log.i(TAG,"Token: " + s);
 
         super.onNewToken(s);
     }

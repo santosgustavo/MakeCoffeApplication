@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private Map<String,String> params;
     private RequestQueue requestQueue;
     private String TAG = "MainActivityLog";
+    private List<String> tokenList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,90 +68,67 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @JavascriptInterface
-    public void toast(String mensagem){
-        String json = null;
-        params = new HashMap<>();
-        //Montando header
-        params.put("Content-Type","application/json");
-        params.put("Authorization","key=AAAArIa51ng:APA91bEaFtrIf-1mD6i636PUI-LPgTTiXLhxsilhQZ8QuLJFJ0DefuCNjrYbqLDI2gqGyi9ZI1QZ5vii82tErxw8gOrAcV6TuAGd-8L3QMkeDm0fNcGgpZFO3kZEFZrO8Vpk3vdxVVZa");
+    public void enviarNotificacao(String mensagem){
+        tokenList.add("cRkaONymzXw:APA91bH80Q7lwuZ4MFDf8j3MzQKz8_oING1H1sv4ULNbMaCoWaR6sKbE_OavIor4v1ZlO_g1fJlw8V5O9Lq_TAk-p06SdaVf15TFtiTs8PL6aF1Pr3B4f4DneyQiklwm3kQd3Ly9yvbv");
+        tokenList.add("d21jmdSBUVE:APA91bHESOsf5gaET2Qj1TVwIT8qQmpqkqf7dru0NXEiXqutV7VK1UIwtwMNP7wnIQHcStNk6kAo0BHN9eqzoM1n4aK5R-kDHvICUNgV6SpveCMpmL21eAgH0CS_LGsGnLPvjGhshbBf");
 
-        //Montando Body
-        Notificacao notificacao = new Notificacao("Make Coffee","Requisicao feito via codigo");
-        JsonNotificacao jsonNotificacao = new JsonNotificacao("cMt5_TXfvec:APA91bETEwj4nE6pe2dUcoMkLTGzJQRw-xmwsVTsODGah4IJusEI1Po70mTTlAZxBv_KDyHqcy2XYOJwv-lh7-FDb1bZLUUSuEZguAUoXu4WkDaAxL1D9VJpJoUHSICjsh90eNqOdITL"
-            , notificacao);
+        fazerRequisicao(tokenList,mensagem);
+    }
 
-        //Convertendo java para json
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            json = objectMapper.writeValueAsString(jsonNotificacao);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+    public void fazerRequisicao(List<String> tokens,String mensagem){
+        for (int i = 0;i < tokens.size();i++){
+            String json = null;
+            params = new HashMap<>();
+            //Montando header
+            params.put("Content-Type","application/json");
+            params.put("Authorization","key=AAAArIa51ng:APA91bEaFtrIf-1mD6i636PUI-LPgTTiXLhxsilhQZ8QuLJFJ0DefuCNjrYbqLDI2gqGyi9ZI1QZ5vii82tErxw8gOrAcV6TuAGd-8L3QMkeDm0fNcGgpZFO3kZEFZrO8Vpk3vdxVVZa");
 
-        //Montando requisicao
-        final String requestBody = json;
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, "https://fcm.googleapis.com/fcm/send", null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.i("onResponse",response.toString());
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.i("onResponse",error.getMessage());
-            }
-        })
+            //Montando Body
+            Notificacao notificacao = new Notificacao("Make Coffee",mensagem);
+            JsonNotificacao jsonNotificacao = new JsonNotificacao(tokens.get(i), notificacao);
 
-        {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-            return params;
+            //Convertendo java para json
+            ObjectMapper objectMapper = new ObjectMapper();
+            try {
+                json = objectMapper.writeValueAsString(jsonNotificacao);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
             }
 
-            @Override
-            public byte[] getBody() {
-                try {
-                    return requestBody == null ? null : requestBody.getBytes("utf-8");
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
+            //Montando requisicao
+            final String requestBody = json;
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, "https://fcm.googleapis.com/fcm/send", null, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    Log.i(TAG,response.toString());
                 }
-                return null;
-            }
-        };
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.i(TAG,error.getMessage());
+                }
+            })
 
-        //Fazendo requisicao
-        requestQueue.add(request);
+            {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    return params;
+                }
 
+                @Override
+                public byte[] getBody() {
+                    try {
+                        return requestBody == null ? null : requestBody.getBytes("utf-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                    return null;
+                }
+            };
 
-
-
-
-
-
-
-
-
-
-
-        /*RequestNetworkModel requestNetworkModel = new RequestNetworkModel(Request.Method.POST,
-                "https://fcm.googleapis.com/fcm/send",
-                params, new Response.Listener<NetworkResponse>() {
-            @Override
-            public void onResponse(NetworkResponse response) {
-                Log.i(TAG, response.data.toString());
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-              //Toast.makeText(getApplicationContext(),"Erro Http: " + error.networkResponse.statusCode,Toast.LENGTH_SHORT).show();
-              Toast.makeText(getApplicationContext(),"Sem choro por favor ",Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-        requestNetworkModel.setTag("tag");
-        requestQueue.add(requestNetworkModel);*/
-
+            //Fazendo requisicao
+            requestQueue.add(request);
+        }
     }
 
 }
