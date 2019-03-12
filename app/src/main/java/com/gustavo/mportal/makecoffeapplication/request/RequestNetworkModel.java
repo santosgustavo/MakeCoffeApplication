@@ -1,13 +1,10 @@
 package com.gustavo.mportal.makecoffeapplication.request;
 
-import android.net.sip.SipSession;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.HttpHeaderParser;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -22,6 +19,7 @@ public class RequestNetworkModel extends Request<JSONObject> {
 
     public RequestNetworkModel(int method, String url, Map<String,String> params, Response.Listener<NetworkResponse> response, Response.ErrorListener errorListener){
         super(method,url,errorListener);
+
 
     }
 
