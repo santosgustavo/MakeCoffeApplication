@@ -7,10 +7,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.webkit.JavascriptInterface;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -19,12 +17,9 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.fge.jackson.JacksonUtils;
 import com.gustavo.mportal.makecoffeapplication.model.JsonNotificacao;
 import com.gustavo.mportal.makecoffeapplication.model.Notificacao;
-import com.gustavo.mportal.makecoffeapplication.request.RequestNetworkModel;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
@@ -84,10 +79,10 @@ public class MainActivity extends AppCompatActivity {
             params.put("Authorization","key=AAAArIa51ng:APA91bEaFtrIf-1mD6i636PUI-LPgTTiXLhxsilhQZ8QuLJFJ0DefuCNjrYbqLDI2gqGyi9ZI1QZ5vii82tErxw8gOrAcV6TuAGd-8L3QMkeDm0fNcGgpZFO3kZEFZrO8Vpk3vdxVVZa");
 
             //Montando Body
-            Notificacao notificacao = new Notificacao("Make Coffee",mensagem);
+            Notificacao notificacao = new Notificacao("Make Coffee",trataMensagemNotificacao(mensagem));
             JsonNotificacao jsonNotificacao = new JsonNotificacao(tokens.get(i), notificacao);
 
-            //Convertendo java para json
+            //Convertendo objeto java para json
             ObjectMapper objectMapper = new ObjectMapper();
             try {
                 json = objectMapper.writeValueAsString(jsonNotificacao);
@@ -129,6 +124,12 @@ public class MainActivity extends AppCompatActivity {
             //Fazendo requisicao
             requestQueue.add(request);
         }
+    }
+
+    public String trataMensagemNotificacao(String mensagem){
+        String[] stringSplit = new String[2];
+        stringSplit = mensagem.split(".");
+        return stringSplit[0];
     }
 
 }

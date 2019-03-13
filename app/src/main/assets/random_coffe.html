@@ -57,8 +57,12 @@
         setTimeout(function() {
             
             clearInterval(time);
+            let nomeDaPessoaSorteada = document
+                .querySelector('img')
+                .getAttribute('src');
+            console.log(nomeDaPessoaSorteada);
             //var recebeFrase = document.querySelector('.coffe').textContent;
-            enviarNotificacao("Fulano foi sorteado");
+            enviarNotificacao(nomeDaPessoaSorteada);
             exibeBotao();
             
         }, timer);
