@@ -13,13 +13,16 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gustavo.mportal.makecoffeapplication.model.JsonNotificacao;
 import com.gustavo.mportal.makecoffeapplication.model.Notificacao;
+import com.gustavo.mportal.makecoffeapplication.model.NotificacaoTokenAPI;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
@@ -67,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         tokenList.add("cRkaONymzXw:APA91bH80Q7lwuZ4MFDf8j3MzQKz8_oING1H1sv4ULNbMaCoWaR6sKbE_OavIor4v1ZlO_g1fJlw8V5O9Lq_TAk-p06SdaVf15TFtiTs8PL6aF1Pr3B4f4DneyQiklwm3kQd3Ly9yvbv");
         tokenList.add("d21jmdSBUVE:APA91bHESOsf5gaET2Qj1TVwIT8qQmpqkqf7dru0NXEiXqutV7VK1UIwtwMNP7wnIQHcStNk6kAo0BHN9eqzoM1n4aK5R-kDHvICUNgV6SpveCMpmL21eAgH0CS_LGsGnLPvjGhshbBf");
 
+        obterListaDeToken();
         fazerRequisicao(tokenList,mensagem);
     }
 
@@ -126,10 +130,38 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    public JSONArray obterListaDeToken(){
+        final List<NotificacaoTokenAPI> list = new ArrayList<>();
+        final JSONArray array = new JSONArray();
+
+        //Montando requisicao
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, "https://robo-notificacao.herokuapp.com/notificacoes/findAll", null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                Log.i(TAG, "Sucesso na requisicao GET");
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if(error.getMessage() != null)
+                    Log.i(TAG,error.getMessage());
+            }
+        });
+
+        //Fazendo requisicao
+        requestQueue.add(request);
+
+        return array;
+    }
+
+
+
     public String trataMensagemNotificacao(String mensagem){
         String[] stringSplit = new String[2];
         stringSplit = mensagem.split(".");
-        return stringSplit[0];
+        return mensagem;
     }
 
 }
