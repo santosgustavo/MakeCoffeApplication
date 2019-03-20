@@ -4,6 +4,10 @@ public class NotificacaoTokenAPI {
     private String nome;
     private String token_id;
 
+    public NotificacaoTokenAPI(){
+
+    }
+
     public NotificacaoTokenAPI(String nome, String token_id) {
         this.nome = nome;
         this.token_id = token_id;
